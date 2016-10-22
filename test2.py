@@ -1,9 +1,12 @@
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-
 import urllib.request
 
 from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 f = urllib.request.urlopen("https://registrationssb.ucr.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=search")
@@ -16,6 +19,40 @@ driver.find_element_by_class_name("select2-arrow").click()
 
 text_box = driver.find_element_by_class_name("select2-input")
 text_box.send_keys('Winter 2017')
+
+
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+text_box.send_keys(Keys.ENTER)
+
+
+
+
+timeout = 5 # seconds
+try:
+    element_present = EC.presence_of_element_located((By.ID, "term-go"))
+    WebDriverWait(driver, timeout).until(element_present)
+except TimeoutException:
+    print ("Timed out waiting for page to load")
+
+
+
+driver.find_element_by_id("term-go").click()
+#driver.find_element_by_id("s2id_txt_subjectcoursecombo").click()
 
 #select = driver.find_element_by_class_name("select2-results")
 #for option in select.find_elements_by_tag_name('li'):
