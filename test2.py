@@ -11,7 +11,7 @@ import urllib.request
 
 
 #set/ask for class variables
-className = "MATH"
+className = "BIOL"
 classNumber = "009C"
 #whichQuarter = ...
 
@@ -70,6 +70,16 @@ except TimeoutException:
 
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
 ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(className + classNumber).perform()
+
+#CHECKS IF CLASS EXISTS
+print(driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text)
+time.sleep(1)
+print(driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text)
+if (driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text) in ["No Matches Found."]:
+    print("Class does not exist! :D Go Expolozo!")
+    driver.close()
+    sys.exit()
+#CONTINUE ONLY IF CLASS ACTUALLY EXISTS
 
 time.sleep(1)
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
