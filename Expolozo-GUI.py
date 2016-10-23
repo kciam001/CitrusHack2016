@@ -112,7 +112,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "term-go"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        file.write("Timed out waiting for page to load(1)\n")
+        print("Timed out waiting for page to load(1)\n")
 
 
     driver.find_element_by_id("term-go").click()
@@ -123,7 +123,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "term-go"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        file.write("Timed out waiting for page to load\n")
+        print("Timed out waiting for page to load\n")
 
     driver.find_element_by_id("s2id_txt_subjectcoursecombo").click()
 
@@ -133,7 +133,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "s2id_txt_subjectcoursecombo"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        file.write("Timed out waiting for page to load\n")
+        print("Timed out waiting for page to load\n")
 
     text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
     ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(className + classNumber).perform()
@@ -198,7 +198,13 @@ def executeFunc():
 
             if(int(idCheck) == callNumber):
                 #convert '1' to string '1'
-                i = str(i) 
+                i = str(i)
+                #extract class type   
+                xpath = "//*[@id='table1']/tbody/tr["+ i +"]/td[6]/span"
+                ###print(driver.find_element_by_xpath(xpath).text)
+                infoTotal += driver.find_element_by_xpath(xpath).text   
+                ###print('\n') #newline for neatness
+                infoTotal += ('\n')
                 #click on enrollment info
                 driver.find_element_by_id("enrollmentInfo").click() 
                 time.sleep(1)
@@ -207,12 +213,7 @@ def executeFunc():
                     ###print(element.text)
                     infoTotal += element.text
                         
-                #extract class type   
-                xpath = "//*[@id='table1']/tbody/tr["+ i +"]/td[6]/span"
-                ###print(driver.find_element_by_xpath(xpath).text)
-                infoTotal += driver.find_element_by_xpath(xpath).text   
-                ###print('\n') #newline for neatness
-                infoTotal += ('\n')
+
                 break
 
             #iterations
@@ -309,7 +310,7 @@ def executeFunc():
     else:
         messagebox.showerror("Error","Sorry, something went wrong. Either you call number was incorrect or the class is full.")
 
-    file.write(infoTotal)
+  
     file.close()
 
     if len(infoTotal) is not 0:
