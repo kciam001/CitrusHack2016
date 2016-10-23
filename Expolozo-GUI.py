@@ -10,7 +10,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 import time
-import sys 
+import sys
+
+from apscheduler.schedulers.background import BackgroundScheduler
+
+sched = BackgroundScheduler()
+
+def initiate():
+    global sched
+    sched.add_job(executeFunc, 'interval', minutes=1, id='job_id_1')
+    sched.start()
 
 def executeFunc():
     #set/ask for class variables
@@ -273,9 +282,11 @@ def executeFunc():
     else:
         messagebox.showerror("Error","Sorry, something went wrong. Either you call number was incorrect or the class is full.")
         
-        driver.quit()
+    driver.quit()
 
 def close_window():
+    global sched
+    sched.shutdown(wait=False)
     app.destroy()
 
 
@@ -284,7 +295,7 @@ app.title('Expolozo!')
 app.resizable(width=False, height=False)
 app.geometry("400x400")
 
-go = tk.Button(bg = 'black', text='Go', fg = 'white', command = executeFunc)
+go = tk.Button(bg = 'black', text='Go', fg = 'white', command = initiate)
 go.grid(row=0, column=0, sticky=tk.N+tk.S+tk.E+tk.W)
 go.place(relx=0.5, rely=0.3, anchor=CENTER)
 
@@ -316,24 +327,23 @@ textBox6 = tk.Entry()
 textBox6.grid(row=0, column=0, sticky=tk.SE)
 textBox6.place(relx=0.85, rely=0.5, anchor=E)
 
-label1 = tk.Label(text="Class Name", fg= 'black')
-label1.place(relx=0.05, rely=0.1, anchor=NW)
+label1 = tk.Label(text="Class Name(Eg: Phys, CS, BIOL)", fg= 'black')
+label1.place(relx=0.01, rely=0.05, anchor=NW)
 
-label2 = tk.Label(text="Class Number", fg='black')
-label2.place(relx=0.95, rely=0.1, anchor=NE)
+label2 = tk.Label(text="Class Number(Eg: 040A, 10, 001)", fg='black')
+label2.place(relx=0.99, rely=0.05, anchor=NE)
 
-label3 = tk.Label(text="Call Number", fg='black')
-label3.place(relx=0.05, rely=0.9, anchor=SW)
+label3 = tk.Label(text="Call Number(-1 if no call number)", fg='black')
+label3.place(relx=0.001, rely=0.95, anchor=SW)
 
 label4 = tk.Label(text="Email", fg='black')
-label4.place(relx=0.95, rely=0.9, anchor=SE)
+label4.place(relx=0.99, rely=0.95, anchor=SE)
 
 label5 = tk.Label(text="Quarter", fg='black')
-label5.place(relx=0.25, rely=0.6, anchor=W)
+label5.place(relx=0.01, rely=0.5, anchor=W)
 
 label6 = tk.Label(text="YEAR", fg='black')
-label6.place(relx=0.75, rely=0.6, anchor=E)
-
+label6.place(relx=0.97, rely=0.5, anchor=E)
 
 
 app.mainloop()
