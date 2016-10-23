@@ -9,6 +9,9 @@ import time
 
 import urllib.request
 
+className = "BIOL"
+classNumber = "003"
+
 f = urllib.request.urlopen("https://registrationssb.ucr.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=search")
 
 driver = webdriver.Chrome()
@@ -34,7 +37,7 @@ for i in elementList:
     #if att is not "":
         #print(att)
 
-timeout = 10 # seconds
+timeout = 5 # seconds
 
 try:
     element_present = EC.presence_of_element_located((By.ID, "term-go"))
@@ -61,17 +64,26 @@ except TimeoutException:
     print ("Timed out waiting for page to load(3)")
 
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
-ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys('CS 100').perform()
+ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(className + classNumber).perform()
 
 
 
-time.sleep(3)
+time.sleep(1)
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
 ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(Keys.TAB).perform()
 
+driver.find_element_by_id("chk_open_only").click()
+driver.find_element_by_id("search-go").click()
+time.sleep(1)
+
+driver.find_element_by_class_name("section-details-link").click()
+time.sleep(1)
+driver.find_element_by_id("enrollmentInfo").click()
 
 
 
+for elem in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
+    print (elem.text)
 
 #ActionChains(driver).move_to_element_with_offset(text_box,0,0).click().perform()
 
