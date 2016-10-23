@@ -49,18 +49,6 @@ def executeFunc():
 
     body = "Do not reply to this email. This is an automated email. @Expolozo"
     msg.attach(MIMEText(body, 'plain'))
-
-    filename = 'emailText.txt'
-    attachment = open(r"C:\Users\Andre\Documents\GitHub\CitrusHack2016\emailText.txt", "rb")
-    
-    
-    part = MIMEBase('application', 'octet-stream')
-    part.set_payload((attachment).read())
-    encoders.encode_base64(part)
-    part.add_header('Content-Disposition', "attachement; filename= %s" % filename)
-
-    msg.attach(part)
-
     
     #initialize callNumber to -1
     #only set callNumber when user wants to enter it
@@ -78,6 +66,10 @@ def executeFunc():
 
     #make file to read
     file = open('emailText.txt', 'w')
+
+    #after file is created save its cwd
+    filename = 'emailText.txt'
+    attachment = open(os.getcwd() + "\\emailText.txt", "rb")
     
     #enter quarter
     text_box = driver.find_element_by_class_name("select2-input")
@@ -319,19 +311,28 @@ def executeFunc():
 
     file.write(infoTotal)
     file.close()
+
+    if len(infoTotal) is not 0:
     
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(fromaddr, password)
-    text = msg.as_string()
-    server.sendmail(fromaddr, toaddr, text)
-    server.quit()
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload((attachment).read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', "attachement; filename= %s" % filename)
+
+        msg.attach(part)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(fromaddr, password)
+        text = msg.as_string()
+        server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+
     
     driver.quit()
 
 def close_window():
     global sched
-    sched.remove_job('job_0')
+    #sched.remove_job('job_0')
     sched.remove_job('job_1')
     sched.shutdown(wait=True)
     app.destroy()
