@@ -9,10 +9,8 @@ import time
 
 import urllib.request
 
-className = "BIOL"
-classNumber = "003"
-
-f = urllib.request.urlopen("https://registrationssb.ucr.edu/StudentRegistrationSsb/ssb/term/termSelection?mode=search")
+className = "MATH"
+classNumber = "146B"
 
 driver = webdriver.Chrome()
 
@@ -82,8 +80,14 @@ driver.find_element_by_id("enrollmentInfo").click()
 
 
 
+
 for elem in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
     print (elem.text)
+
+
+print(driver.find_element_by_xpath("//*[@id='table1']/tbody/tr[1]/td[6]/span").text)
+
+    
 
 #ActionChains(driver).move_to_element_with_offset(text_box,0,0).click().perform()
 
