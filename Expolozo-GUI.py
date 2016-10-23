@@ -1,7 +1,11 @@
 import tkinter as tk #For GUI stuff
 from tkinter import *
 import os
-
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+from email.mime.base import MIMEBase
+from email import encoders
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium import webdriver
@@ -32,6 +36,31 @@ def executeFunc():
     callNumber = int(callNumber)
     infoTotal = ""
 
+    fromaddr = "expolozo2016@gmail.com"
+    toaddr = textBox4.get()
+    password = "EMAILMAILINGSERVICEFORSCHEDULEOFCLASSES123"
+    
+    msg = MIMEMultipart()
+
+    msg['From'] = fromaddr
+    msg['To'] = toaddr
+    msg['Subject'] = "Automated Email: {}".format(className + classNumber)
+
+    body = "Do not reply to this email. This is an automated email. @Expolozo"
+    msg.attach(MIMEText(body, 'plain'))
+
+    filename = 'emailText.txt'
+    attachment = open(r"C:\Users\Andre\Documents\GitHub\CitrusHack2016\emailText.txt", "rb")
+    
+    
+    part = MIMEBase('application', 'octet-stream')
+    part.set_payload((attachment).read())
+    encoders.encode_base64(part)
+    part.add_header('Content-Disposition', "attachement; filename= %s" % filename)
+
+    msg.attach(part)
+
+    
     #initialize callNumber to -1
     #only set callNumber when user wants to enter it
     #callNumber = 41651
@@ -39,12 +68,16 @@ def executeFunc():
 
     #initialize driver
     driver = webdriver.Chrome()
+    driver.set_window_position(-2000, 0)
 
     #goto website and navigate to textbox
     driver.get("https://registrationssb.ucr.edu/StudentRegistrationSsb/ssb/classSearch/classSearch")
     driver.find_element_by_id("classSearchLink").click()
     driver.find_element_by_class_name("select2-arrow").click()
 
+    #make file to read
+    file = open('emailText.txt', 'w')
+    
     #enter quarter
     text_box = driver.find_element_by_class_name("select2-input")
     text_box.send_keys(quarterYear)
@@ -70,7 +103,7 @@ def executeFunc():
     elementList = text_box.find_elements_by_xpath(xpathID)
 
     if len(elementList) is 0:
-        print("elementList is empty")
+        file.write("elementList is empty\n")
         
     for i in elementList:
         i.click()
@@ -86,7 +119,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "term-go"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        print ("Timed out waiting for page to load(1)")
+        file.write("Timed out waiting for page to load(1)\n")
 
 
     driver.find_element_by_id("term-go").click()
@@ -97,7 +130,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "term-go"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        print ("Timed out waiting for page to load")
+        file.write("Timed out waiting for page to load\n")
 
     driver.find_element_by_id("s2id_txt_subjectcoursecombo").click()
 
@@ -107,7 +140,7 @@ def executeFunc():
         element_present = EC.presence_of_element_located((By.ID, "s2id_txt_subjectcoursecombo"))
         WebDriverWait(driver, timeout).until(element_present)
     except TimeoutException:
-        print ("Timed out waiting for page to load")
+        file.write("Timed out waiting for page to load\n")
 
     text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
     ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(className + classNumber).perform()
@@ -240,7 +273,7 @@ def executeFunc():
             #print call number
             idCheck = driver.find_element_by_xpath("//*[@id='courseReferenceNumber']").text
             ###print("Call Number: " + idCheck)
-            infoTotal += ("Call Number:" + idCheck)
+            infoTotal += ("\nCall Number:" + idCheck + "\n")
             #click on enrollment info
             driver.find_element_by_id("enrollmentInfo").click() 
             time.sleep(1)    
@@ -252,6 +285,7 @@ def executeFunc():
                 infoTotal += element.text
 
             ###print('\n') #newline for neatness
+            infoTotal += ('\n')
             infoTotal += ('\n')
 
             
@@ -278,10 +312,20 @@ def executeFunc():
 
 
     if(infoTotal != ""):
-        print(infoTotal)
+        file.write(infoTotal+"\n")
     else:
         messagebox.showerror("Error","Sorry, something went wrong. Either you call number was incorrect or the class is full.")
-        
+
+    file.write(infoTotal)
+    file.close()
+    
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, password)
+    text = msg.as_string()
+    server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    
     driver.quit()
 
 def close_window():

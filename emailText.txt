@@ -1,0 +1,91 @@
+Lecture
+Call Number:33228
+Enrollment Actual: 0
+Enrollment Maximum: 105
+Enrollment Seats Available (may have been offered to students on the waitlist): 105
+Waitlist Capacity: 9
+Waitlist Actual: 0
+Waitlist Seats Available: 9
+
+Lecture
+Call Number:41944
+Enrollment Actual: 0
+Enrollment Maximum: 100
+Enrollment Seats Available (may have been offered to students on the waitlist): 100
+Waitlist Capacity: 0
+Waitlist Actual: 0
+Waitlist Seats Available: 0
+
+Laboratory
+Call Number:33229
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
+Laboratory
+Call Number:33230
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
+Laboratory
+Call Number:33231
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
+
+Lecture
+Call Number:33228
+Enrollment Actual: 0
+Enrollment Maximum: 105
+Enrollment Seats Available (may have been offered to students on the waitlist): 105
+Waitlist Capacity: 9
+Waitlist Actual: 0
+Waitlist Seats Available: 9
+
+Lecture
+Call Number:41944
+Enrollment Actual: 0
+Enrollment Maximum: 100
+Enrollment Seats Available (may have been offered to students on the waitlist): 100
+Waitlist Capacity: 0
+Waitlist Actual: 0
+Waitlist Seats Available: 0
+
+Laboratory
+Call Number:33229
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
+Laboratory
+Call Number:33230
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
+Laboratory
+Call Number:33231
+Enrollment Actual: 0
+Enrollment Maximum: 40
+Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Waitlist Capacity: 99
+Waitlist Actual: 0
+Waitlist Seats Available: 99
+
