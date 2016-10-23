@@ -18,7 +18,11 @@ def executeFunc():
     classNumber = textBox2.get()
     quarterYear= textBox5.get() + ' ' + textBox6.get()
     callNumber = textBox3.get()
+    if len(callNumber) is 0:
+        callNumber = -1
     callNumber = int(callNumber)
+    infoTotal = ""
+
     #initialize callNumber to -1
     #only set callNumber when user wants to enter it
     #callNumber = 41651
@@ -167,13 +171,15 @@ def executeFunc():
                 time.sleep(1)
                 #extract info of one class using xpath
                 for element in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
-                    print(element.text)
+                    ###print(element.text)
+                    infoTotal += element.text
                         
                 #extract class type   
                 xpath = "//*[@id='table1']/tbody/tr["+ i +"]/td[6]/span"
-                print(driver.find_element_by_xpath(xpath).text)
-                    
-                print('\n') #newline for neatness
+                ###print(driver.find_element_by_xpath(xpath).text)
+                infoTotal += driver.find_element_by_xpath(xpath).text   
+                ###print('\n') #newline for neatness
+                infoTotal += ('\n')
                 break
 
             #iterations
@@ -215,7 +221,8 @@ def executeFunc():
             #convert '1' to string '1'
             i = str(i)
             xpath = "//*[@id='table1']/tbody/tr["+ i +"]/td[6]/span"
-            print(driver.find_element_by_xpath(xpath).text)
+            ###print(driver.find_element_by_xpath(xpath).text)
+            infoTotal += driver.find_element_by_xpath(xpath).text
             k = str(k)
             xpath0 = "//*[@id='table1']/tbody/tr[" + k + "]/td[6]/a"
             #click on section details
@@ -225,7 +232,8 @@ def executeFunc():
             time.sleep(1)
             #print call number
             idCheck = driver.find_element_by_xpath("//*[@id='courseReferenceNumber']").text
-            print("Call Number: " + idCheck)
+            ###print("Call Number: " + idCheck)
+            infoTotal += ("Call Number:" + idCheck)
             #click on enrollment info
             driver.find_element_by_id("enrollmentInfo").click() 
             time.sleep(1)    
@@ -233,9 +241,11 @@ def executeFunc():
 
             #extract info of one class using xpath
             for element in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
-                print(element.text)
+                ###print(element.text)
+                infoTotal += element.text
 
-            print('\n') #newline for neatness
+            ###print('\n') #newline for neatness
+            infoTotal += ('\n')
 
             
             ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(Keys.ESCAPE).perform()   
@@ -259,6 +269,12 @@ def executeFunc():
         ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(Keys.ESCAPE).perform()
         driver.find_element_by_xpath("//*[@id='searchResultsTable']/div[2]/div/button[3]").click()
 
+
+    if(infoTotal != ""):
+        print(infoTotal)
+    else:
+        print("Sorry, something went wrong.")
+        
         driver.quit()
 
 def close_window():
