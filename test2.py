@@ -9,8 +9,8 @@ import time
 
 import urllib.request
 
-className = "MATH"
-classNumber = "146B"
+className = "BIOL"
+classNumber = "003"
 
 driver = webdriver.Chrome()
 
@@ -44,14 +44,13 @@ except TimeoutException:
     print ("Timed out waiting for page to load(1)")
 
 
-
 driver.find_element_by_id("term-go").click()
 
 try:
     element_present = EC.presence_of_element_located((By.ID, "term-go"))
     WebDriverWait(driver, timeout).until(element_present)
 except TimeoutException:
-    print ("Timed out waiting for page to load(2)")
+    print ("Timed out waiting for page to load")
 
 driver.find_element_by_id("s2id_txt_subjectcoursecombo").click()
 
@@ -59,12 +58,11 @@ try:
     element_present = EC.presence_of_element_located((By.ID, "s2id_txt_subjectcoursecombo"))
     WebDriverWait(driver, timeout).until(element_present)
 except TimeoutException:
-    print ("Timed out waiting for page to load(3)")
+    print ("Timed out waiting for page to load")
+
 
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
-ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(className + classNumber).perform()
-
-
+ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys('CS 100').perform()
 
 time.sleep(1)
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
@@ -73,25 +71,20 @@ ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(Keys.TA
 driver.find_element_by_id("chk_open_only").click()
 driver.find_element_by_id("search-go").click()
 time.sleep(1)
-
 driver.find_element_by_class_name("section-details-link").click()
 time.sleep(1)
 driver.find_element_by_id("enrollmentInfo").click()
+time.sleep(1)
+for element in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
+    print(element.text)
 
-
-
-
-for elem in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
-    print (elem.text)
-
+numClassesFound = driver.find_element_by_xpath("//*[@id='results-terms']/div/h3/span/span").text
+numClassesFound = int(numClassesFound[0])
+print(numClassesFound)
 
 print(driver.find_element_by_xpath("//*[@id='table1']/tbody/tr[1]/td[6]/span").text)
 
-    
-
-#ActionChains(driver).move_to_element_with_offset(text_box,0,0).click().perform()
-
-
+driver.find_element_by_xpath("/html/body/div[29]/div[1]/a/span").click()
 
 
 #text_box.send_keys('CS 100')
