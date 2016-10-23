@@ -5,6 +5,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
+import time
 
 import urllib.request
 
@@ -33,13 +34,13 @@ for i in elementList:
     #if att is not "":
         #print(att)
 
-timeout = 5 # seconds
+timeout = 10 # seconds
 
 try:
     element_present = EC.presence_of_element_located((By.ID, "term-go"))
     WebDriverWait(driver, timeout).until(element_present)
 except TimeoutException:
-    print ("Timed out waiting for page to load")
+    print ("Timed out waiting for page to load(1)")
 
 
 
@@ -49,7 +50,7 @@ try:
     element_present = EC.presence_of_element_located((By.ID, "term-go"))
     WebDriverWait(driver, timeout).until(element_present)
 except TimeoutException:
-    print ("Timed out waiting for page to load")
+    print ("Timed out waiting for page to load(2)")
 
 driver.find_element_by_id("s2id_txt_subjectcoursecombo").click()
 
@@ -57,11 +58,22 @@ try:
     element_present = EC.presence_of_element_located((By.ID, "s2id_txt_subjectcoursecombo"))
     WebDriverWait(driver, timeout).until(element_present)
 except TimeoutException:
-    print ("Timed out waiting for page to load")
+    print ("Timed out waiting for page to load(3)")
 
 text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
 ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys('CS 100').perform()
-text_box.send_keys("\t")
+
+
+
+time.sleep(3)
+text_box = driver.find_element_by_xpath("//*[@id='s2id_txt_subjectcoursecombo']/ul")
+ActionChains(driver).move_to_element_with_offset(text_box,0,0).send_keys(Keys.TAB).perform()
+
+
+
+
+
+#ActionChains(driver).move_to_element_with_offset(text_box,0,0).click().perform()
 
 
 
