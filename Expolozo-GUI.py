@@ -105,11 +105,9 @@ def executeFunc():
 
 
     #CHECKS IF CLASS EXISTS
-    print(driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text)
     time.sleep(1)
-    print(driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text)
     if (driver.find_element_by_xpath("//*[@id='select2-drop']/ul/li").text) in ["No Matches Found."]:
-        print("Class does not exist! :D Go Expolozo!")
+        messagebox.showerror("Error!","Class does not exist! :D Go Expolozo!")
         driver.close()
         sys.exit()
     #CONTINUE ONLY IF CLASS ACTUALLY EXISTS
@@ -273,7 +271,7 @@ def executeFunc():
     if(infoTotal != ""):
         print(infoTotal)
     else:
-        print("Sorry, something went wrong.")
+        messagebox.showerror("Error","Sorry, something went wrong. Either you call number was incorrect or the class is full.")
         
         driver.quit()
 
