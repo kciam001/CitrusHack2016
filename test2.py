@@ -75,14 +75,20 @@ driver.find_element_by_class_name("section-details-link").click()
 time.sleep(1)
 driver.find_element_by_id("enrollmentInfo").click()
 time.sleep(1)
-for element in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
-    print(element.text)
+
 
 numClassesFound = driver.find_element_by_xpath("//*[@id='results-terms']/div/h3/span/span").text
 numClassesFound = int(numClassesFound[0])
-print(numClassesFound)
 
-print(driver.find_element_by_xpath("//*[@id='table1']/tbody/tr[1]/td[6]/span").text)
+for _ in range(numClassesFound):
+
+    for element in driver.find_elements_by_xpath("//*[@id='classDetailsContentDetailsDiv']"):
+        print(element.text)
+    print(driver.find_element_by_xpath("//*[@id='table1']/tbody/tr[1]/td[6]/span").text)
+
+
+
+
 
 driver.find_element_by_xpath("/html/body/div[29]/div[1]/a/span").click()
 
