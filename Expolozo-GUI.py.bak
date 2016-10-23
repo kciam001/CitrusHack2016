@@ -22,8 +22,7 @@ sched = BackgroundScheduler()
 
 def initiate():
     global sched
-    sched.add_job(executeFunc, id = 'job_0')
-    sched.add_job(executeFunc, trigger='interval', minutes=30, id = 'job_1', max_instances=3)
+    sched.add_job(executeFunc, 'interval', minutes=1, id='job_id_1')
     sched.start()
 
 def executeFunc():
@@ -331,9 +330,7 @@ def executeFunc():
 
 def close_window():
     global sched
-    sched.remove_job('job_0')
-    sched.remove_job('job_1')
-    sched.shutdown(wait=True)
+    sched.shutdown(wait=False)
     app.destroy()
 
 
