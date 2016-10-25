@@ -1,14 +1,7 @@
 Discussion
 Enrollment Actual: 0
-Enrollment Maximum: 40
-Enrollment Seats Available (may have been offered to students on the waitlist): 40
-Waitlist Capacity: 99
-Waitlist Actual: 0
-Waitlist Seats Available: 99
-Discussion
-Enrollment Actual: 0
-Enrollment Maximum: 40
-Enrollment Seats Available (may have been offered to students on the waitlist): 40
+Enrollment Maximum: 50
+Enrollment Seats Available (may have been offered to students on the waitlist): 50
 Waitlist Capacity: 99
 Waitlist Actual: 0
 Waitlist Seats Available: 99

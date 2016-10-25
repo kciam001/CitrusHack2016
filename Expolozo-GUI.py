@@ -57,7 +57,7 @@ def executeFunc():
 
     #initialize driver
     driver = webdriver.Chrome()
-    driver.set_window_position(-2000, 0)
+   ## driver.set_window_position(-2000, 0)
 
     #goto website and navigate to textbox
     driver.get("https://registrationssb.ucr.edu/StudentRegistrationSsb/ssb/classSearch/classSearch")
